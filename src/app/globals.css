@@ -117,7 +117,7 @@ body, html {
   background-color: #f8f8f8;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .app {
@@ -141,6 +141,7 @@ body, html {
 .location-info {
   display: flex;
   flex-direction: column;
+  
 }
 
 .location {
@@ -161,15 +162,24 @@ body, html {
 
 .reel-card {
   padding: 16px;
+  position: relative;
+  overflow: hidden; /* Ensure video doesn't get cut off */
 }
 
 .builder-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  position: absolute;
+  width: 100%;
+  padding: 5px 35px 0px 5px;
 }
-
+.builder-main{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  
+}
 .builder-text h3 {
   margin: 0;
   font-size: 18px;
@@ -192,8 +202,8 @@ body, html {
   height: auto;
   border-radius: 16px;
   margin-bottom: 12px;
+  display: block;
 }
-
 .builder-actions {
   display: flex;
   justify-content: space-around;
@@ -229,4 +239,28 @@ body, html {
   cursor: pointer;
   margin: 0 10px;
   transition: background-color 0.3s;
+}
+
+.video-player {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.unmute-button {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 5px 5px;
+  border-radius: 8px;
+  font-size: 10px;
+  cursor: pointer;
+
+}
+
+.unmute-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
 }
