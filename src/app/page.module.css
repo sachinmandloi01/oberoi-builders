@@ -1,0 +1,114 @@
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+} */
+
+/* body, html {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.app {
+  max-width: 400px; /* Ensures the design maintains a mobile-like width */
+  width: 100%;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.location {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.city {
+  color: gray;
+  font-size: 14px;
+}
+
+.header-icons i {
+  margin-left: 16px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.reel-card {
+  padding: 16px;
+}
+
+.builder-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.builder-text h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.builder-text p {
+  margin: 0;
+  color: gray;
+  font-size: 14px;
+}
+
+.distance {
+  color: gray;
+  font-size: 14px;
+}
+
+.reel-video video {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+
+.builder-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 12px;
+}
+
+.builder-actions i {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.reviews-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.reviews-button:hover {
+  background-color: #0056b3;
+}
