@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./page.module.css";
 import Image from "next/image";
+
 export default function Home() {
   const videos = [
     { name: "Hotel WOW", src: "./1.mp4" },
@@ -15,16 +16,17 @@ export default function Home() {
   const videoRefs = useRef([]);
 
   const handleUnmute = () => {
-    if (videoRefs.current[0]) {
-      videoRefs.current[0].muted = false;
-      setIsMuted(false);
-    }
+    setIsMuted(false);
+    videoRefs.current.forEach((video) => {
+      if (video) video.muted = false;
+    });
   };
-  const handlemute = () => {
-    if (videoRefs.current[0]) {
-      videoRefs.current[0].muted = true;
-      setIsMuted(true);
-    }
+
+  const handleMute = () => {
+    setIsMuted(true);
+    videoRefs.current.forEach((video) => {
+      if (video) video.muted = true;
+    });
   };
 
   const loadVideoChunk = async (videoIndex, start, end) => {
@@ -114,17 +116,6 @@ export default function Home() {
 
   return (
     <div className="app">
-      {/* <header className="app-header">
-        <div className="location-info">
-          <span className="location">Vijay nagar</span>
-          <span className="city">Indore</span>
-        </div>
-        <div className="header-icons">
-          <i className="icon-bookmark"></i>
-          <i className="icon-notifications"></i>
-          <i className="icon-menu"></i>
-        </div>
-      </header> */}
       <div className="reel-container">
         {videos.map((item, index) => (
           <div className="reel-card" key={index}>
@@ -134,15 +125,14 @@ export default function Home() {
                   <h3>{item.name}</h3>
                   <p>Indore, 25 Min away</p>
                 </div>
-                {/* <p className="distance">6km away</p> */}
               </div>
             </div>
 
             <div className="reel-video">
               <video
                 src={index === 0 ? videoSrc : item.src}
-                autoPlay={index === 0}
-                loop={true}
+                autoPlay
+                loop
                 playsInline
                 className="video-player"
                 controls={false}
@@ -151,21 +141,17 @@ export default function Home() {
                 onEnded={() => handleVideoEnded(index)}
               ></video>
 
-              {isMuted && (
-                <div className="unmute-button" onClick={handleUnmute}>
-                  <Image src="/1234.png" alt="test" width={25} height={20} />
-                </div>
-              )}
-              {!isMuted && (
-                <div className="unmute-button" onClick={handlemute}>
-                  <Image
-                    src="/Speaker_Icon.svg.png"
-                    alt="test"
-                    width={25}
-                    height={20}
-                  />
-                </div>
-              )}
+              <div
+                className="unmute-button"
+                onClick={isMuted ? handleUnmute : handleMute}
+              >
+                <Image
+                  src={isMuted ? "/1234.png" : "/Speaker_Icon.svg.png"}
+                  alt="Unmute/Mute"
+                  width={25}
+                  height={20}
+                />
+              </div>
             </div>
 
             <div className="builder-actions">
