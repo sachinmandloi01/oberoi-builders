@@ -4,16 +4,17 @@ import "./page.module.css";
 import Image from "next/image";
 
 export default function Home() {
+  const [isMuted, setIsMuted] = useState(true);
+  const [videoSrc, setVideoSrc] = useState(null);
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true); // Modal state
+  const videoRefs = useRef([]);
+
   const videos = [
     { name: "Hotel WOW", src: "./1.mp4" },
     { name: "Oberoi Hotels", src: "./2.mp4" },
     { name: "Radisson Blu Mumbai International Airport", src: "./3.mp4" },
     { name: "Fairfield by Marriott Mumbai", src: "./4.mp4" },
   ];
-
-  const [isMuted, setIsMuted] = useState(true);
-  const [videoSrc, setVideoSrc] = useState(null);
-  const videoRefs = useRef([]);
 
   const handleUnmute = () => {
     setIsMuted(false);
@@ -29,16 +30,12 @@ export default function Home() {
     });
   };
 
-  const loadVideoChunk = async (videoIndex, start, end) => {
-    const response = await fetch(videos[videoIndex].src, {
-      headers: {
-        Range: `bytes=${start}-${end}`,
-      },
+  const closeWelcomeModal = () => {
+    setIsMuted(false);
+    videoRefs.current.forEach((video) => {
+      if (video) video.muted = false;
     });
-
-    const blob = await response.blob();
-    const chunkUrl = URL.createObjectURL(blob);
-    setVideoSrc(chunkUrl);
+    setIsWelcomeModalOpen(false);
   };
 
   useEffect(() => {
@@ -50,7 +47,7 @@ export default function Home() {
           video.play();
         } else {
           video.pause();
-          video.currentTime = 0; // Reset video to the beginning
+          video.currentTime = 0;
         }
       });
     };
@@ -75,47 +72,39 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      videoRefs.current.forEach((video) => {
-        if (video) {
-          const rect = video.getBoundingClientRect();
-          const inView =
-            rect.top >= 0 &&
-            rect.bottom <=
-              (window.innerHeight || document.documentElement.clientHeight);
-
-          if (inView) {
-            video.play();
-          } else {
-            video.pause();
-            video.currentTime = 0;
-          }
-        }
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    // Initial call to handleScroll to autoplay the first video
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
     loadVideoChunk(0, 0, 500000); // Load first chunk of the first video
   }, []);
 
+  const loadVideoChunk = async (videoIndex, start, end) => {
+    const response = await fetch(videos[videoIndex].src, {
+      headers: {
+        Range: `bytes=${start}-${end}`,
+      },
+    });
+
+    const blob = await response.blob();
+    const chunkUrl = URL.createObjectURL(blob);
+    setVideoSrc(chunkUrl);
+  };
+
   const handleVideoEnded = (videoIndex) => {
-    const nextStart = 500001; // Continue from where the last chunk ended
-    const nextEnd = nextStart + 500000; // Next chunk size
+    const nextStart = 500001;
+    const nextEnd = nextStart + 500000;
     loadVideoChunk(videoIndex, nextStart, nextEnd);
   };
 
   return (
     <div className="app">
+      {isWelcomeModalOpen && (
+        <div className="welcome-modal">
+          <div className="welcome-content">
+            <h2>Welcome to Our Property </h2>
+            {/* <p>We are glad to have you here!</p> */}
+            <button onClick={closeWelcomeModal}>Close</button>
+          </div>
+        </div>
+      )}
+
       <div className="reel-container">
         {videos.map((item, index) => (
           <div className="reel-card" key={index}>
