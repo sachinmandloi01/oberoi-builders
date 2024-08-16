@@ -100,7 +100,7 @@ export default function Home() {
           <div className="welcome-content">
             <h2>Welcome to Our Property </h2>
             {/* <p>We are glad to have you here!</p> */}
-            <button onClick={closeWelcomeModal}>Close</button>
+            <button onClick={closeWelcomeModal}>Enter</button>
           </div>
         </div>
       )}
