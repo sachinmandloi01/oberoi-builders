@@ -124,21 +124,23 @@ img {
   max-width: none;
 }
 .app {
-  /* max-width: 400px; */
-  width: 100%;
+  position: relative;
+  height: 100vh; 
   background-color: #000;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .reel-container {
+  flex: 1; /* Fills the available space between header and footer */
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
-  height: calc(100vh - 100px); /* Full viewport height */
+  
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* IE and Edge */
-  position: relative;
 }
 
 /* Chrome, Safari, and Opera */
@@ -148,7 +150,7 @@ img {
 
 .reel-card {
   scroll-snap-align: start; /* Snaps to the start of each reel card */
-  height: calc(100vh - 100px); /* Each reel card takes the full viewport height */
+  height: calc(100vh - 138px); 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -230,8 +232,7 @@ img {
 .builder-actions {
   display: flex;
   justify-content: space-around;
-  position: sticky;
-  bottom: 0;
+  flex-shrink: 0; /* Prevents the footer from shrinking */
   width: 100%;
   padding: 15px 10px 15px 10px;
   z-index: 2;
@@ -312,10 +313,11 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0; /* Prevents the header from shrinking */
+  width: 100%;
   padding: 16px;
   background-color: #000;
   height: 74px;
-  position: sticky;
 }
 .location-info{
   width: 50%;
