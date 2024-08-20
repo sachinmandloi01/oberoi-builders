@@ -137,6 +137,7 @@ img {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .reel-container {
@@ -367,23 +368,11 @@ img {
 .builder-text img{
   float: left;
 }
-
-@media (max-width: 768px) {
-  .app, .header, .builder-actions {
-    padding-left: 0;
-    padding-right: 0;
+@media (max-width: 767px) {
+  body, html {
+    width: 100%;
   }
-  
-  .reel-card {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .header-icons {
-    margin-left: 0; /* Remove margins causing overflow */
-  }
-
-  .location-info {
-    width: calc(100% - 40px); /* Adjust width for padding */
+  .app {
+    width: 100%;
   }
 }
