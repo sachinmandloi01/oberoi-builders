@@ -1,12 +1,22 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import "./page.module.css";
 import Image from "next/image";
-
+import "./page.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMagnifyingGlass,
+  faMapMarkedAlt,
+  faPhoneFlip,
+  faPaperPlane,
+} from "@fortawesome/free-solid-svg-icons";
+import { faBookmark } from "@fortawesome/free-regular-svg-icons";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { useRouter } from "next/navigation";
 export default function Home() {
+  const router = useRouter();
   const [isMuted, setIsMuted] = useState(true);
   const [videoSrc, setVideoSrc] = useState(null);
-  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true); // Modal state
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true);
   const videoRefs = useRef([]);
 
   const videos = [
@@ -99,21 +109,45 @@ export default function Home() {
         <div className="welcome-modal">
           <div className="welcome-content">
             <h2>Welcome to Our Property </h2>
-            {/* <p>We are glad to have you here!</p> */}
             <button onClick={closeWelcomeModal}>Enter</button>
           </div>
         </div>
       )}
 
+      {/* Header Section */}
+      <div className="header">
+        <div className="location-info">
+          <h4>Vijay Nagar</h4>
+          <p>Indore</p>
+        </div>
+        <div className="header-icons">
+          <FontAwesomeIcon icon={faBookmark} className="header-icons-color" />
+
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            className="header-icons-color"
+          />
+          <FontAwesomeIcon
+            icon={faMapMarkedAlt}
+            className="header-icons-color"
+          />
+        </div>
+      </div>
+
+      {/* Property Cards */}
       <div className="reel-container">
         {videos.map((item, index) => (
           <div className="reel-card" key={index}>
-            <div className="builder-info">
+            <div
+              className="builder-info"
+              onClick={() => router.push("/details")}
+            >
               <div className="builder-main">
                 <div className="builder-text">
-                  <h3>{item.name}</h3>
+                  <h4>{item.name}</h4>
                   <p>Indore, 25 Min away</p>
                 </div>
+                <span className="distance-info">6Km away</span>
               </div>
             </div>
 
@@ -129,27 +163,29 @@ export default function Home() {
                 ref={(el) => (videoRefs.current[index] = el)}
                 onEnded={() => handleVideoEnded(index)}
               ></video>
-
-              <div
-                className="unmute-button"
-                onClick={isMuted ? handleUnmute : handleMute}
-              >
-                <Image
-                  src={isMuted ? "/1234.png" : "/Speaker_Icon.svg.png"}
-                  alt="Unmute/Mute"
-                  width={25}
-                  height={20}
-                />
-              </div>
             </div>
 
             <div className="builder-actions">
-              <i className="icon-whatsapp"></i>
-              <i className="icon-phone"></i>
-              <i className="icon-send"></i>
-            </div>
+              <FontAwesomeIcon
+                icon={faBookmark}
+                className="icons-color-black"
+              />
 
-            <button className="reviews-button">Reviews</button>
+              <FontAwesomeIcon
+                icon={faWhatsapp}
+                className="icons-color-black"
+              />
+              <FontAwesomeIcon
+                icon={faPhoneFlip}
+                className="icons-color-black"
+              />
+              <FontAwesomeIcon
+                icon={faPaperPlane}
+                className="icons-color-black"
+              />
+
+              <button className="reviews-button">Reviews</button>
+            </div>
           </div>
         ))}
       </div>
