@@ -15,10 +15,8 @@ const posts = [
   "./Rectangle18.png",
   "./Rectangle19.png",
   "./Rectangle20.png",
-  "./Rectangle21.png",
-  "./Rectangle22.png",
-  "./Rectangle23.png",
-  "./Rectangle24.png",
+
+  ,
 ];
 
 const videos = ["./1.mp4", "./2.mp4", "./3.mp4", "./4.mp4"];
