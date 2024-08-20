@@ -138,6 +138,7 @@ img {
   height: calc(100vh - 100px); /* Full viewport height */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* IE and Edge */
+  position: relative;
 }
 
 /* Chrome, Safari, and Opera */
@@ -229,11 +230,11 @@ img {
 .builder-actions {
   display: flex;
   justify-content: space-around;
-  position: absolute;
+  position: sticky;
+  bottom: 0;
   width: 100%;
   padding: 15px 10px 15px 10px;
   z-index: 2;
-  bottom: 70px;
   background-color: #fff;
   border-radius: 20px;
   align-self: center;
@@ -314,6 +315,7 @@ img {
   padding: 16px;
   background-color: #000;
   height: 74px;
+  position: sticky;
 }
 .location-info{
   width: 50%;

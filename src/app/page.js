@@ -167,20 +167,19 @@ export default function Home() {
                 onEnded={() => handleVideoEnded(index)}
               ></video>
             </div>
-
-            <div className="builder-actions">
-              <img src={"/bx_bookmark.png"} height={30} width={30} />
-              <img src={"/whatsapp.png"} height={28} width={28} />
-              <img src={"/basil_phone-outline-b.png"} height={34} width={34} />
-              <img
-                src={"/bitcoin-icons_share-outline.png"}
-                height={33}
-                width={33}
-              />
-              <button className="reviews-button">Reviews</button>
-            </div>
           </div>
         ))}
+        <div className="builder-actions">
+          <img src={"/bx_bookmark.png"} height={30} width={30} />
+          <img src={"/whatsapp.png"} height={28} width={28} />
+          <img src={"/basil_phone-outline-b.png"} height={34} width={34} />
+          <img
+            src={"/bitcoin-icons_share-outline.png"}
+            height={33}
+            width={33}
+          />
+          <button className="reviews-button">Reviews</button>
+        </div>
       </div>
     </div>
   );
