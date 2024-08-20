@@ -135,7 +135,7 @@ img {
 .reel-container {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
-  height: calc(100vh - 74px); /* Full viewport height */
+  height: calc(100vh - 100px); /* Full viewport height */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* IE and Edge */
 }
@@ -147,7 +147,7 @@ img {
 
 .reel-card {
   scroll-snap-align: start; /* Snaps to the start of each reel card */
-  height: calc(100vh - 74px); /* Each reel card takes the full viewport height */
+  height: calc(100vh - 100px); /* Each reel card takes the full viewport height */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
