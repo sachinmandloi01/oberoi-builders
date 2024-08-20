@@ -1,15 +1,15 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 import "./page.module.css";
 
-import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter();
   const [isMuted, setIsMuted] = useState(true);
   const [videoSrc, setVideoSrc] = useState(null);
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true);
   const videoRefs = useRef([]);
+  const secondReelRef = useRef(null); // Ref for the second reel-card
 
   const videos = [
     { name: "Hotel WOW", src: "./1.mp4" },
@@ -38,6 +38,11 @@ export default function Home() {
       if (video) video.muted = false;
     });
     setIsWelcomeModalOpen(false);
+
+    // Scroll to the second reel-card
+    if (secondReelRef.current) {
+      secondReelRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {
@@ -111,20 +116,9 @@ export default function Home() {
         <div className="location-info">
           <img src="/carbon_location.png" width={22} height={22} />
           <h4>Vijay Nagar</h4>
-
           <p>Indore</p>
         </div>
         <div className="header-icons">
-          {/* <FontAwesomeIcon icon={faBookmark} className="header-icons-color" /> */}
-
-          {/* <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            className="header-icons-color"
-          />
-          <FontAwesomeIcon
-            icon={faMapMarkedAlt}
-            className="header-icons-color"
-          /> */}
           <img src={"/bx_bookmark-w.png"} height={30} width={30} />
           <img src={"/iconamoon_search.png"} height={31} width={31} />
           <img src={"/solar_point-on-map-bold.png"} height={30} width={31} />
@@ -134,7 +128,11 @@ export default function Home() {
       {/* Property Cards */}
       <div className="reel-container">
         {videos.map((item, index) => (
-          <div className="reel-card" key={index}>
+          <div
+            className="reel-card"
+            key={index}
+            ref={index === 1 ? secondReelRef : null} // Attach ref to the second reel-card
+          >
             <div
               className="builder-info"
               onClick={() => router.push("/details")}
@@ -142,7 +140,6 @@ export default function Home() {
               <div className="builder-main">
                 <div className="builder-text">
                   <img src={"/profile_default.png"} height={40} width={42} />
-
                   <h4>{item.name}</h4>
                   <p>Indore, 25 Min away</p>
                 </div>
@@ -157,7 +154,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="reel-video">
+            <div className="reel-video" onClick={() => router.push("/details")}>
               <video
                 src={index === 0 ? videoSrc : item.src}
                 autoPlay
@@ -172,23 +169,6 @@ export default function Home() {
             </div>
 
             <div className="builder-actions">
-              {/* <FontAwesomeIcon
-                icon={faBookmark}
-                className="icons-color-black"
-              />
-
-              <FontAwesomeIcon
-                icon={faWhatsapp}
-                className="icons-color-black"
-              />
-              <FontAwesomeIcon
-                icon={faPhoneFlip}
-                className="icons-color-black"
-              />
-              <FontAwesomeIcon
-                icon={faPaperPlane}
-                className="icons-color-black"
-              /> */}
               <img src={"/bx_bookmark.png"} height={30} width={30} />
               <img src={"/whatsapp.png"} height={28} width={28} />
               <img src={"/basil_phone-outline-b.png"} height={34} width={34} />
@@ -197,7 +177,6 @@ export default function Home() {
                 height={33}
                 width={33}
               />
-
               <button className="reviews-button">Reviews</button>
             </div>
           </div>
