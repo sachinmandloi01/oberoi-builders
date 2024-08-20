@@ -54,15 +54,23 @@
 }
 
 .title {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 600;
 }
 
-.description, .address, .website {
+.description{
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 600;
+
+}
+.address, .website {
   font-size: 14px;
   margin-top: 4px;
-}
+  font-weight: 600;
+  color: #579AFF;
 
+}
 .tabMenu {
   display: flex;
   justify-content: space-around;

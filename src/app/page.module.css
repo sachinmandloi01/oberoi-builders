@@ -45,6 +45,9 @@
   color: gray;
   font-size: 14px;
 }
+.header-icons{
+  display: flex;
+}
 
 .header-icons i {
   margin-left: 16px;

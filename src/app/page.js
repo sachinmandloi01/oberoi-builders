@@ -121,16 +121,19 @@ export default function Home() {
           <p>Indore</p>
         </div>
         <div className="header-icons">
-          <FontAwesomeIcon icon={faBookmark} className="header-icons-color" />
+          {/* <FontAwesomeIcon icon={faBookmark} className="header-icons-color" /> */}
 
-          <FontAwesomeIcon
+          {/* <FontAwesomeIcon
             icon={faMagnifyingGlass}
             className="header-icons-color"
           />
           <FontAwesomeIcon
             icon={faMapMarkedAlt}
             className="header-icons-color"
-          />
+          /> */}
+          <Image src={"/bx_bookmark-w.png"} height={20} width={20} />
+          <Image src={"/iconamoon_search.png"} height={20} width={20} />
+          <Image src={"/solar_point-on-map-bold.png"} height={20} width={20} />
         </div>
       </div>
 
@@ -166,7 +169,7 @@ export default function Home() {
             </div>
 
             <div className="builder-actions">
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 icon={faBookmark}
                 className="icons-color-black"
               />
@@ -182,6 +185,18 @@ export default function Home() {
               <FontAwesomeIcon
                 icon={faPaperPlane}
                 className="icons-color-black"
+              /> */}
+              <Image src={"/bx_bookmark.png"} height={20} width={20} />
+              <Image src={"/whatsapp.png"} height={20} width={20} />
+              <Image
+                src={"/basil_phone-outline-b.png"}
+                height={20}
+                width={20}
+              />
+              <Image
+                src={"/bitcoin-icons_share-outline.png"}
+                height={20}
+                width={20}
               />
 
               <button className="reviews-button">Reviews</button>
