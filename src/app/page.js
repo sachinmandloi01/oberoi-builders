@@ -2,15 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import "./page.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMagnifyingGlass,
-  faMapMarkedAlt,
-  faPhoneFlip,
-  faPaperPlane,
-} from "@fortawesome/free-solid-svg-icons";
-import { faBookmark } from "@fortawesome/free-regular-svg-icons";
-import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+
 import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter();
@@ -117,7 +109,9 @@ export default function Home() {
       {/* Header Section */}
       <div className="header">
         <div className="location-info">
+          <img src="/carbon_location.png" width={22} height={22} />
           <h4>Vijay Nagar</h4>
+
           <p>Indore</p>
         </div>
         <div className="header-icons">
@@ -131,9 +125,9 @@ export default function Home() {
             icon={faMapMarkedAlt}
             className="header-icons-color"
           /> */}
-          <Image src={"/bx_bookmark-w.png"} height={20} width={20} />
-          <Image src={"/iconamoon_search.png"} height={20} width={20} />
-          <Image src={"/solar_point-on-map-bold.png"} height={20} width={20} />
+          <img src={"/bx_bookmark-w.png"} height={30} width={30} />
+          <img src={"/iconamoon_search.png"} height={31} width={31} />
+          <img src={"/solar_point-on-map-bold.png"} height={30} width={31} />
         </div>
       </div>
 
@@ -147,10 +141,19 @@ export default function Home() {
             >
               <div className="builder-main">
                 <div className="builder-text">
+                  <img src={"/profile_default.png"} height={40} width={42} />
+
                   <h4>{item.name}</h4>
                   <p>Indore, 25 Min away</p>
                 </div>
-                <span className="distance-info">6Km away</span>
+                <div className="builder-location-text">
+                  <img
+                    src={"/solar_point-on-map-bold.png"}
+                    height={30}
+                    width={31}
+                  />
+                  <span className="distance-info">6Km away</span>
+                </div>
               </div>
             </div>
 
@@ -186,17 +189,13 @@ export default function Home() {
                 icon={faPaperPlane}
                 className="icons-color-black"
               /> */}
-              <Image src={"/bx_bookmark.png"} height={20} width={20} />
-              <Image src={"/whatsapp.png"} height={20} width={20} />
-              <Image
-                src={"/basil_phone-outline-b.png"}
-                height={20}
-                width={20}
-              />
-              <Image
+              <img src={"/bx_bookmark.png"} height={30} width={30} />
+              <img src={"/whatsapp.png"} height={28} width={28} />
+              <img src={"/basil_phone-outline-b.png"} height={34} width={34} />
+              <img
                 src={"/bitcoin-icons_share-outline.png"}
-                height={20}
-                width={20}
+                height={33}
+                width={33}
               />
 
               <button className="reviews-button">Reviews</button>
