@@ -7,7 +7,7 @@ export default function Home() {
   const router = useRouter();
   const [isMuted, setIsMuted] = useState(true);
   const [videoSrc, setVideoSrc] = useState(null);
-  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true);
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
   const videoRefs = useRef([]);
   const secondReelRef = useRef(null); // Ref for the second reel-card
 
@@ -296,7 +296,7 @@ export default function Home() {
                   <div className="imgBx">
                     <div
                       className="reel-video"
-                      onClick={() => router.push("/details")}
+                      // onClick={() => router.push("/details")}
                     >
                       <video
                         src={index === 0 ? videoSrc : item.src}
@@ -310,6 +310,26 @@ export default function Home() {
                         onEnded={() => handleVideoEnded(index)}
                         width={200}
                       ></video>
+                      {isMuted && (
+                        <div className="unmute-button" onClick={handleUnmute}>
+                          <img
+                            src="/1234.png"
+                            alt="test"
+                            width={25}
+                            height={20}
+                          />
+                        </div>
+                      )}
+                      {!isMuted && (
+                        <div className="unmute-button" onClick={handleMute}>
+                          <img
+                            src="/Speaker_Icon.svg.png"
+                            alt="test"
+                            width={25}
+                            height={20}
+                          />
+                        </div>
+                      )}
                     </div>
                     {/* ))} */}
                   </div>
