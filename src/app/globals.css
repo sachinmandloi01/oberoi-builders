@@ -100,20 +100,30 @@ body {
 }
 
 body {
-  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu,
-    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background: #fafafa;
-}
 
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f8f8;
+}
+.app {
+  position: relative;
+  height: 100%;
+  background-color: #000;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 .navbar {
   position: fixed;
   z-index: 100000;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgb(255, 255, 255);
+  background: #000;
   width: 100%;
-  border: 1px solid rgb(218, 217, 217);
+  border: 1px solid #000;
 }
 
 .navbar .container {
@@ -294,6 +304,8 @@ main .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
 }
 
 .col-3 .card .top a {
@@ -308,21 +320,24 @@ main .container {
   width: 100%;
   display: flex;
   align-items: center;
+  color: #fff;
 }
 
 .col-3 .card .top .userDetails h3 {
   font-size: 16px;
-  color: #4d4d4f;
+  color: #fff;
   font-weight: 500;
   line-height: 1em;
 }
 
 .col-3 .card .top .userDetails h3 span {
   font-size: 0.75em;
+  color: #fff;
 }
 
 .col-3 .card .top .userDetails h3 span {
   font-size: 0.75em;
+  color: #fff;
 }
 
 .col-9 .card {
@@ -331,7 +346,8 @@ main .container {
   width: 100%;
   /* min-height: 400px; */
   display: inline-block;
-  border: 1px solid rgba(7, 7, 7, 0.24);
+  border: 1px solid rgb(255 255 255);
+  border-radius: 20px;
 }
 
 .col-9 .card .top {
@@ -339,6 +355,7 @@ main .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #fff;
 }
 
 .col-9 .card .bottom {
@@ -349,6 +366,7 @@ main .container {
   width: 100%;
   display: flex;
   align-items: center;
+  color: #fff;
 }
 
 .profilepic {
@@ -401,17 +419,19 @@ main .container {
 .col-9 .card .top .userDetails h3 {
   /* width: 100%; */
   font-size: 16px;
-  color: #4d4d4f;
-  font-weight: 500;
-  line-height: 1em;
+    font-weight: 600;
+    color: #fff;
+
 }
 
 .col-9 .card .top .userDetails h3 span {
   font-size: 0.75em;
+  color: #fff;
 }
 
 .col-9 .card .top .userDetails h3 span {
   font-size: 0.75em;
+  color: #fff;
 }
 
 .dot {
@@ -446,7 +466,7 @@ main .container {
   font-weight: 500;
   margin-top: 5px;
   font-size: 14px;
-  color: #4d4d4f;
+  color: #fff;
 }
 
 .message {
@@ -458,7 +478,7 @@ main .container {
 }
 
 .message b {
-  color: #262626;
+  color: #fff;
 }
 
 .message span {
@@ -469,7 +489,7 @@ main .container {
 .comments {
   margin-top: 10px;
   font-weight: 400;
-  color: #999;
+  color: #fff;
 }
 
 .addComments {
@@ -509,7 +529,7 @@ input.text::placeholder {
 .postTime {
   margin-top: 8px;
   font-weight: lighter;
-  color: rgb(163, 163, 163);
+  color: #fff;
   font-size: 12px;
   text-transform: uppercase;
 }
@@ -525,7 +545,7 @@ a {
 @media screen and (max-width: 1000px) {
   .col-9 {
     width: 100%;
-    background: #fafafa;
+    background: #000;
   }
 
   .col-3 {
@@ -622,4 +642,47 @@ a {
 
 .welcome-content button:hover {
   background-color: #005bb5;
+}
+.reviews-button {
+  color:#000;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+.bottom {
+  background-color: #fff;
+  border-radius: 20px;
+
+}
+.builder-location-text{
+  display: grid;
+  place-items: center;
+  /* float: right; */
+  margin-left: auto;
+}
+
+.location-info{
+  width: 50%;
+}
+.location-info img{
+  float: left;
+}
+ .location-info h4 {
+  font-size: 14px;
+   font-weight: 700;
+   font-family: 'Poppins', sans-serif;
+  margin: 0;
+  color: #fff;
+}
+
+ .location-info p {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  color: #999999;
+  margin: 0;
 }
