@@ -5,12 +5,16 @@ import styles from "../details/Profile.module.css";
 const ImageGrid = ({ items, type }) => {
   return (
     <div className={styles.imageGrid}>
-      {items.map((item, index) => (
+      {items?.videoFiles.map((item, index) => (
         <div key={index} className={styles.imageItem}>
           {type === "image" ? (
-            <img src={item} alt={`Image ${index + 1}`} />
+            // <img src={item} alt={`Image ${index + 1}`} />
+            <video
+              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/videos/${item}`}
+              controls={false}
+            />
           ) : (
-            <video src={item} controls />
+            <video src={item} controls={false} />
           )}
         </div>
       ))}

@@ -103,6 +103,9 @@ body {
 
     font-family: 'Poppins', sans-serif;
     background-color: #f8f8f8;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .app {
   position: relative;
@@ -124,12 +127,13 @@ body {
   background: #000;
   width: 100%;
   border: 1px solid #000;
+  max-width: 450px;
 }
 
 .navbar .container {
   /* background-color: #555; */
   padding: 15px 0;
-  width: 75%;
+  width: 95%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -222,7 +226,7 @@ main {
 main .container {
   position: relative;
   margin-top: 60px;
-  width: 75%;
+  /* width: 75%; */
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -230,7 +234,7 @@ main .container {
 }
 
 .col-9 {
-  width: 40%;
+  /* width: 40%; */
   margin: 0px auto;
 }
 
@@ -698,3 +702,80 @@ a {
   cursor: pointer;
   z-index: 1024;
 }
+/* search modal css start */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1040;
+  align-items: flex-end;
+}
+
+.modal-content {
+  background: white;
+  width: 90%;
+  max-width: 400px;
+  height: calc(100% - 72px); /* Fullscreen height */
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  padding: 20px; /* Add padding for the search bar */
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+}
+
+.city-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1; /* Allow the city list to take up remaining space */
+  overflow-y: auto;
+}
+
+.city-list li {
+  padding: 15px 20px; /* Add padding for the city items */
+  border-bottom: 1px solid #eee;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.city-list li:hover {
+  background-color: #f9f9f9;
+}
+
+.search-button {
+  padding: 5px;
+  width: 90%;
+  display: block;
+  margin: auto;
+  font-size: 18px;
+  border: 1px solid #000; /* Add a border to see if it's being overlapped */
+  border-radius: 50px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.search-button:hover {
+  background-color: #eee;
+}
+
+
+/* modal css end */

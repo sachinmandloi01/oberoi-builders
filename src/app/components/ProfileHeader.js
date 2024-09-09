@@ -1,35 +1,82 @@
-// src/components/ProfileHeader.js
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import styles from "../details/Profile.module.css";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
-const ProfileHeader = () => {
+const ProfileHeader = (props) => {
+  const [data, setData] = useState({});
+  const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
+  useEffect(() => {
+    setData(props.data);
+    const slideInterval = setInterval(() => {
+      nextSlide();
+    }, 3000); // Change slide every 3 seconds
+
+    return () => clearInterval(slideInterval);
+  }, [props.data]);
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? data?.propertyImages?.length - 1 : prevIndex - 1
+    );
+  };
+
+  const nextSlide = () => {
+    if (data?.propertyImages?.length > 0) {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === data?.propertyImages?.length - 1 ? 0 : prevIndex + 1
+      );
+    }
+  };
+
   return (
     <div className={styles.profileHeader}>
-      <img
-        src="./Group39.png"
-        alt="Profile Background"
-        className={styles.backgroundImage}
-      />
-
-      <div className={styles.overlay}>
-        <div className={styles.topBar}>
-          <button
-            className={styles.backButton}
-            onClick={() => router.push("/")}
-          >
-            <Image src="/Vector.png" width={10} height={10} />
-          </button>
-          <div className={styles.actions}>
-            <button className={styles.callButton}>
-              {" "}
-              <Image src="/basil_phone-outline.png" width={20} height={20} />
-            </button>
+      <div className={styles.slider}>
+        {/* <button className={styles.prevButton} onClick={prevSlide}>
+          &#10094;
+        </button> */}
+        <div className={styles.imageContainer}>
+          <div className={styles.vectorIconContainer}>
+            <img
+              src="../Vector.png"
+              width={13}
+              onClick={() => router.push(`/`)}
+            />
           </div>
+
+          {data?.propertyImages?.map((image, index) => {
+            // console.log("Image URL:", image);
+            // console.log("Index:", index);
+            // console.log("Current Index:", currentIndex);
+
+            return (
+              <div
+                className={`${styles.imageSlide} ${
+                  index === currentIndex ? styles.active : ""
+                }`}
+                key={index}
+              >
+                {index === currentIndex && (
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/images/${image}`}
+                    alt={`Slide ${index}`}
+                    objectFit="cover"
+                    layout="fill"
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
+
+        {/* <button className={styles.nextButton} onClick={nextSlide}>
+          &#10095;
+        </button> */}
       </div>
+
+      {/* Rest of the ProfileHeader code */}
       <div className={styles.profileInfo}>
         <div className={styles.stats}>
           <div>
@@ -41,20 +88,20 @@ const ProfileHeader = () => {
             <p className={styles.views}> Views</p>
           </div>
         </div>
-        <h2 className={styles.title}>Oberoi Builders</h2>
-        <p className={styles.description}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
+        <h2 className={styles.title}>{data?.contactName}</h2>
+        <p className={styles.description}>{data?.propertyDescription}</p>
         <div className={styles.location}>
           <Image src="/carbon_location.png" width={20} height={5} />
-          <p className={styles.address}>
-            2972 Westheimer Rd. Santa Ana, Illinois 85486
-          </p>
+          <p className={styles.address}>{data?.location}</p>
         </div>
         <div className={styles.location}>
           <Image src="/fluent_link-28-filled.png" width={20} height={5} />
-          <a href="https://www.oberoibuilders.com" className={styles.website}>
-            www.oberoibuilders.com
+          <a
+            href={data?.websiteLink}
+            target="__blank"
+            className={styles.website}
+          >
+            {data?.websiteLink}
           </a>
         </div>
       </div>

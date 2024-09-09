@@ -1,0 +1,63 @@
+/* Modal.module.css */
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1065;
+  }
+  
+  .modalContent {
+    background-color: #000;
+    border-radius: 8px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    height: 100vh; /* Full screen height */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  }
+  
+  .amenitiesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .amenity {
+    padding: 5px 10px;
+    border: 2px solid #fff;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modalHeader {
+    display: flex;
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Align items vertically centered */
+    position: relative;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid;
+  }
+  
+  .modalTitle {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Center h2 horizontally */
+    margin: 0; /* Remove default margin */
+    font-size: 16px; /* Adjust font size if needed */
+    text-transform: capitalize;
+  }

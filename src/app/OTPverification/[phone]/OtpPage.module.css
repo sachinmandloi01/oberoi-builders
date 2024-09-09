@@ -1,0 +1,83 @@
+.otpContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #000;
+    height: 100vh;
+    overflow: hidden;
+    color: #fff;
+  }
+  
+  .imageContainer {
+    position: relative;
+    width: 100%;
+    height: 241px;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+    overflow: hidden;
+  }
+  
+  .backgroundImage {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .backButton {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    width: 118px;
+    height: 79px;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .verificationText {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  
+  .otpInputContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+  }
+  
+  .otpInput {
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+    text-align: center;
+    font-size: 24px;
+    background-color: #000;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    color: #fff;
+  }
+  .errorText {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  

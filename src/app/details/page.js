@@ -26,17 +26,19 @@ export default function Page() {
 
   return (
     <div className={"app"}>
-      <ProfileHeader />
-      <TabMenu />
-      <PostVideoToggle
-        activeContent={activeContent}
-        setActiveContent={setActiveContent}
-      />
-      <div className={styles.content}>
-        <ImageGrid
-          items={activeContent === "Posts" ? posts : videos}
-          type={activeContent === "Posts" ? "image" : "video"}
+      <div className="col-9">
+        <ProfileHeader />
+        <TabMenu />
+        <PostVideoToggle
+          activeContent={activeContent}
+          setActiveContent={setActiveContent}
         />
+        <div className={styles.content}>
+          <ImageGrid
+            items={activeContent === "Posts" ? posts : videos}
+            type={activeContent === "Posts" ? "image" : "video"}
+          />
+        </div>
       </div>
     </div>
   );

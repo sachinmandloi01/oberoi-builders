@@ -2,13 +2,14 @@
 
 .profileHeader {
   position: relative;
-  /* height: 400px; */
   background-color: #000;
+  
+  box-sizing: border-box;
 }
 
 .backgroundImage {
   width: 100%;
-  /* height: 100%; */
+  height: auto;
   object-fit: cover;
 }
 
@@ -18,12 +19,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  /* background: rgba(0, 0, 0, 0.5); */
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 16px;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .topBar {
@@ -42,6 +43,7 @@
 .profileInfo {
   text-align: center;
   color: #fff;
+  padding: 16px;
 }
 
 .stats {
@@ -54,40 +56,44 @@
 }
 
 .title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
 }
 
-.description{
+.description {
   font-size: 13px;
   margin-top: 4px;
   font-weight: 600;
-
 }
+
 .address, .website {
   font-size: 14px;
   margin-top: 4px;
   font-weight: 600;
   color: #579AFF;
-
+  z-index: 1050;
 }
+
+.location {
+  display: flex;
+ 
+}
+
 .tabMenu {
   display: flex;
   justify-content: space-around;
   background: black;
-  padding: 20px 50px;
+  padding: 20px 10px;
 }
 
 .tabButton {
-      /* border: none; */
-      color: white;
-      font-size: 14px;
-      padding: 5px;
-      flex: 1;
-      /* width: 40%; */
-      background: #3e4646;
-      margin: 5px;
-      border-radius: 25px;
+  color: white;
+  font-size: 14px;
+  padding: 5px;
+  flex: 1;
+  background: #3e4646;
+  margin: 5px;
+  border-radius: 25px;
 }
 
 .postVideoToggle {
@@ -102,12 +108,13 @@
   background: none;
   border: none;
   color: #ccc;
-  font-size: 16px;
+  font-size: 14px;
   padding: 8px;
   flex: 1;
   text-align: center;
   display: flex;
   justify-content: center;
+  height: 38px;
 }
 
 .active {
@@ -127,10 +134,73 @@
 
 .imageItem img, .imageItem video {
   width: 100%;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   object-fit: cover;
+  height: 100px;
 }
-.location{
+.container {
+  position: relative;
+  margin-top: 60px;
+  /* width: 75%; */
   display: flex;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: auto;
+}
+
+/* src/styles/ImageSlider.module.css */
+
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 250px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.imageContainer {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.imageSlide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.imageSlide.active {
+  opacity: 1;
+}
+
+.prevButton, .nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 2;
+  font-size: 18px;
+}
+
+.prevButton {
+  left: 10px;
+}
+
+.nextButton {
+  right: 10px;
+}
+.vectorIconContainer {
+  position: absolute;
+  top: 10px; /* Adjust as necessary */
+  left: 10px; /* Adjust as necessary */
+  z-index: 2; /* Ensure it stays above the slider */
 }

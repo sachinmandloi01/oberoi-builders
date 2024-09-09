@@ -2,28 +2,35 @@
 import React, { useState } from "react";
 import styles from "../details/Profile.module.css";
 import Image from "next/image";
-const PostVideoToggle = () => {
-  const [activeTab, setActiveTab] = useState("Posts");
+import Link from "next/link";
+const PostVideoToggle = ({ activeContent, setActiveContent, data }) => {
+  // const [activeTab, setActiveTab] = useState("Posts");
+
+  const handleClick = (index) => {
+    setActiveContent(index);
+  };
 
   return (
     <div className={styles.postVideoToggle}>
       <button
         className={`${styles.toggleButton} ${
-          activeTab === "Posts" ? styles.active : ""
+          activeContent === "Posts" ? styles.active : ""
         }`}
-        onClick={() => setActiveTab("Posts")}
+        onClick={() => handleClick("Posts")}
       >
         <Image src="/gridIcon.png" width={20} height={5} />{" "}
         <p style={{ marginLeft: "5px" }}>Posts</p>
       </button>
       <button
         className={`${styles.toggleButton} ${
-          activeTab === "Videos" ? styles.active : ""
+          activeContent === "Videos" ? styles.active : ""
         }`}
-        onClick={() => setActiveTab("Videos")}
+        // onClick={() => handleClick("Videos")}
       >
         <Image src="/video_icon.png" width={30} height={30} />{" "}
-        <p style={{ marginLeft: "5px" }}>Videos</p>
+        <a href={data?.youtubeLinks} target="_blank" rel="noopener noreferrer">
+          Videos
+        </a>
       </button>
     </div>
   );
