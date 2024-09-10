@@ -128,6 +128,7 @@ body {
   width: 100%;
   border: 1px solid #000;
   max-width: 450px;
+  /* height: 10vh; */
 }
 
 .navbar .container {
@@ -225,7 +226,7 @@ main {
 
 main .container {
   position: relative;
-  margin-top: 60px;
+  /* margin-top: 60px; */
   /* width: 75%; */
   display: flex;
   align-items: flex-start;
@@ -234,8 +235,8 @@ main .container {
 }
 
 .col-9 {
-  /* width: 40%; */
-  margin: 0px auto;
+  margin-top: 10vh;
+  height: auto;
 }
 
 .statuses {
@@ -350,8 +351,10 @@ main .container {
   width: 100%;
   /* min-height: 400px; */
   display: inline-block;
-  border: 1px solid rgb(255 255 255);
-  border-radius: 20px;
+
+  /* border-radius: 20px; */
+  /* height: 90vh; */
+  /* border: 4px solid red; */
 }
 
 .col-9 .card .top {
@@ -452,7 +455,7 @@ main .container {
 
 .actionBtns {
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
 }
 
@@ -656,10 +659,14 @@ a {
   font-size: 14px;
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
+  line-height: 34px;
+  text-decoration: underline;
 }
 .bottom {
   background-color: #fff;
   border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
 
 }
 .builder-location-text{
@@ -668,6 +675,17 @@ a {
   /* float: right; */
   margin-left: auto;
 }
+
+
+
+
+.col-9 .card .bottom {
+  padding: 10px 20px;
+  margin-top: -52px;
+  z-index: 9999;
+  position: relative;
+}
+
 
 .location-info{
   width: 50%;
@@ -721,7 +739,7 @@ a {
   background: white;
   width: 90%;
   max-width: 400px;
-  height: calc(100% - 72px); /* Fullscreen height */
+  height: calc(100% - 72px); 
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -776,6 +794,119 @@ a {
 .search-button:hover {
   background-color: #eee;
 }
-
-
 /* modal css end */
+/* css by sourabh */
+
+
+.imgBx {
+  position: relative;
+  width: 100%;
+}
+
+.reel-video {
+  position: relative;
+  width: 100%;
+   height: 60vh; 
+  overflow: hidden;
+}
+
+.video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video covers the container without distortion */
+}
+
+/* Mobile-specific styles */
+@media screen and (max-width: 768px) {
+  .reel-video {
+    height: 80vh; /* 60% of the viewport height on mobile */
+  }
+}
+
+/* Ensure container scales with the screen size */
+.video-container {
+  width: 100%;             /* Full width of the device */
+             /* 80% of the viewport height */
+  position: relative;      /* For additional control if needed */
+  overflow: hidden;        /* Hide any overflow */
+}
+
+/* Make the video responsive */
+.video-container video {
+  width: 100%;             /* Take full width */
+  height: 100%;            /* Take full height */
+  object-fit: cover;       /* Maintain aspect ratio while covering the container */
+}
+
+/* Media queries for additional adjustments */
+@media (orientation: landscape) {
+  .video-container {
+      height: 80vh;        /* Adjust height in landscape mode */
+  }
+
+
+  .top {
+    position: absolute;
+    z-index: 9999;
+    background: #424242a6;
+    width: 100%;
+    top: 1vh;
+  }
+
+
+}
+
+@media (max-width: 600px) {
+  .video-container {
+      height: 90vh;        /* For smaller screens, make it taller */
+  }
+
+
+  .top {
+    position: absolute;
+    z-index: 9999;
+    background: #424242a6;
+    width: 100%;
+    top: 7vh;
+  }
+
+
+
+}
+.video-container {
+  position: relative;
+  width: 100%;
+  /* For 16:9 aspect ratio, padding-bottom: 56.25%; */
+  /* For 9:16 aspect ratio, padding-bottom: 177.78%; */
+  padding-bottom: 177.78%; /* Default to 9:16 for vertical videos */
+  overflow: hidden;
+}
+
+/* Responsive video styling */
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video covers the container without distortion */
+  object-position: center center;
+}
+/* Landscape orientation adjustments */
+@media (orientation: landscape) {
+  .video-container {
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  }
+}
+
+/* For very small screens */
+@media (max-width: 400px) {
+  .video-container {
+      padding-bottom: 200%; /* Adjust if needed for very narrow screens */
+  }
+}
+
+
+.actionBtns img {
+  margin-right: 15px;
+}
