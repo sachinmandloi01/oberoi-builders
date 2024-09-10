@@ -27,7 +27,7 @@ export default function Page() {
   return (
     <div className={"app"}>
       <div className="col-9">
-        <ProfileHeader />
+        {/* <ProfileHeader />
         <TabMenu />
         <PostVideoToggle
           activeContent={activeContent}
@@ -38,7 +38,7 @@ export default function Page() {
             items={activeContent === "Posts" ? posts : videos}
             type={activeContent === "Posts" ? "image" : "video"}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
