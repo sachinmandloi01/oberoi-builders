@@ -58,15 +58,19 @@ export default function Home() {
   };
   useEffect(() => {
     const handleScroll = () => {
-      const topElement = document.querySelector(".top");
-      if (window.scrollY > 50) {
-        topElement.style.top = "0vh";
-      } else {
-        topElement.style.top = "7vh";
-      }
+      const topElements = document.querySelectorAll(".top"); // Select all elements with class 'top'
+
+      // Loop through all elements and apply the same logic
+      topElements.forEach((topElement) => {
+        if (window.scrollY > 50) {
+          topElement.style.top = "0vh"; // Scrolls down
+        } else {
+          topElement.style.top = "7vh"; // Near the top
+        }
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
