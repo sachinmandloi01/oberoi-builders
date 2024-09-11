@@ -115,3 +115,14 @@
 .reviews-button:hover {
   background-color: #0056b3;
 }
+
+@media (max-width: 600px) {
+  .top {
+      position: absolute;
+      z-index: 9999;
+      background: #424242a6;
+      width: 100%;
+      top: 7vh;
+      transition: top 0.3s ease; /* Smooth transition for the top change */
+  }
+}

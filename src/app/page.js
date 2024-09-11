@@ -56,7 +56,21 @@ export default function Home() {
       secondReelRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+  useEffect(() => {
+    const handleScroll = () => {
+      const topElement = document.querySelector(".top");
+      if (window.scrollY > 50) {
+        topElement.style.top = "0vh";
+      } else {
+        topElement.style.top = "7vh";
+      }
+    };
 
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   useEffect(() => {
     const handleIntersection = (entries) => {
       entries.forEach((entry) => {
