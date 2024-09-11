@@ -24,8 +24,7 @@ export default function Home() {
 
     if (!existingScript) {
       const script = document.createElement("script");
-      script.src =
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyBlTA-iVYrYDl1ua-eS2GJYlpeSe--bmbI";
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`;
       script.id = "googleMaps";
       document.body.appendChild(script);
       script.onload = () => {
@@ -81,7 +80,7 @@ export default function Home() {
   };
 
   const fetchLocationName = (lat, lng) => {
-    const geocodeApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyBlTA-iVYrYDl1ua-eS2GJYlpeSe--bmbI`;
+    const geocodeApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`;
 
     fetch(geocodeApiUrl)
       .then((response) => response.json())
