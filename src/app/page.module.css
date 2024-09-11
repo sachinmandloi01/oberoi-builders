@@ -126,3 +126,34 @@
       transition: top 0.3s ease; /* Smooth transition for the top change */
   }
 }
+
+@media (max-width: 768px) { /* Adjust for all mobile screen sizes */
+  .top {
+      position: absolute;
+      z-index: 9999;
+      background: #424242a6;
+      width: 100%;
+      top: 7vh;
+      transition: top 0.3s ease; /* Smooth transition for the top change */
+  }
+}
+
+@media (max-width: 480px) {
+  .top {
+      top: 7vh;
+  }
+}
+
+/* For medium-sized mobile devices */
+@media (max-width: 600px) {
+  .top {
+      top: 7vh;
+  }
+}
+
+/* For larger mobile devices (e.g., iPhone 13 Pro Max) */
+@media (max-width: 768px) {
+  .top {
+      top: 7vh;
+  }
+}

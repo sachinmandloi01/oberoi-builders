@@ -68,9 +68,9 @@ export default function Home() {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup listener on component unmount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   useEffect(() => {
     const handleIntersection = (entries) => {
       entries.forEach((entry) => {
