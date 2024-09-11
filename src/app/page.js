@@ -12,8 +12,105 @@ export default function Home() {
   const videoRefs = useRef([]);
   const secondReelRef = useRef(null); // Ref for the second reel-card
   const [videos, setVideos] = useState([]);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [locationName, setLocationName] = useState("");
+  const [cityName, setCityName] = useState("");
+
+  const loadGoogleMaps = (callback) => {
+    const existingScript = document.getElementById("googleMaps");
+
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.src =
+        "https://maps.googleapis.com/maps/api/js?key=AIzaSyBlTA-iVYrYDl1ua-eS2GJYlpeSe--bmbI";
+      script.id = "googleMaps";
+      document.body.appendChild(script);
+      script.onload = () => {
+        if (typeof google !== "undefined") {
+          callback();
+        } else {
+          console.error("Google Maps API not loaded.");
+        }
+      };
+    } else if (typeof google !== "undefined") {
+      callback();
+    } else {
+      existingScript.onload = () => {
+        if (typeof google !== "undefined") {
+          callback();
+        } else {
+          console.error("Google Maps API not loaded.");
+        }
+      };
+    }
+  };
+
+  const initMap = (lat, lng) => {
+    const location = { lat, lng };
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: location,
+      zoom: 15,
+    });
+
+    new google.maps.Marker({
+      position: location,
+      map: map,
+    });
+  };
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        setLatitude(lat);
+        setLongitude(lng);
+
+        // Initialize the Google Map with current location
+        loadGoogleMaps(() => initMap(lat, lng));
+
+        // Fetch location name and city using Google Maps Geocoding API
+        fetchLocationName(lat, lng);
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+
+  const fetchLocationName = (lat, lng) => {
+    const geocodeApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyBlTA-iVYrYDl1ua-eS2GJYlpeSe--bmbI`;
+
+    fetch(geocodeApiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "OK") {
+          const locationName = data.results[0].formatted_address;
+          let city = "";
+
+          data.results[0].address_components.forEach((component) => {
+            if (component.types.includes("locality")) {
+              city = component.long_name;
+            }
+          });
+
+          setLocationName(locationName);
+          setCityName(city);
+        } else {
+          console.error(
+            "Geocode was not successful for the following reason: " +
+              data.status
+          );
+        }
+      })
+      .catch((err) => console.error("Error fetching geocode data: ", err));
+  };
+
+  useEffect(() => {
+    getLocation();
+  }, []);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -22,13 +119,6 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => setVideos(data));
   }, []);
-
-  // const videos = [
-  //   { name: "Hotel WOW", src: "./1.mp4" },
-  //   { name: "Oberoi Hotels", src: "./2.mp4" },
-  //   { name: "Radisson Blu Mumbai International Airport", src: "./3.mp4" },
-  //   { name: "Fairfield by Marriott Mumbai", src: "./4.mp4" },
-  // ];
 
   const handleUnmute = () => {
     setIsMuted(false);
@@ -134,6 +224,53 @@ export default function Home() {
     const nextEnd = nextStart + 500000;
     loadVideoChunk(videoIndex, nextStart, nextEnd);
   };
+  const handleShare = async (contactName, location, id) => {
+    const shareUrl = `${window.location.origin}/details/${id}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: contactName,
+          text: location,
+          url: shareUrl,
+        });
+        setIsShared(true); // Update the state if sharing was successful
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      alert("Web Share API is not supported in your browser.");
+    }
+  };
+
+  const handleShareWhatsapp = (contactName, location, id) => {
+    const shareUrl = `${window.location.origin}/details/${id}`;
+    const message = `${contactName}: ${shareUrl}`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+
+    // Open WhatsApp
+    window.open(whatsappUrl, "_blank");
+  };
+
+  function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the Earth in kilometers
+    const dLat = deg2rad(lat2 - lat1); // Convert degrees to radians
+    const dLon = deg2rad(lon2 - lon1);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distance in kilometers
+    return Math.round(distance);
+  }
+
+  function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+  }
 
   return (
     <>
@@ -152,9 +289,9 @@ export default function Home() {
             <div className="container">
               <div className="location-info">
                 <img src="/carbon_location.png" width={22} height={22} />
-                <h4>Vijay Nagar</h4>
-                <i class="fa fa-angle-down" aria-hidden="true"></i>
-                <p>Indore</p>
+                <h4>{locationName}</h4>
+                <i className="fa fa-angle-down" aria-hidden="true"></i>
+                <p>{cityName}</p>
               </div>
               <div className="nav-links">
                 <ul className="nav-group">
@@ -196,109 +333,145 @@ export default function Home() {
         <main>
           <div className="container">
             <div className="col-9">
-              {videos?.map((item, index) => (
-                <div className="card reel-card" key={index}>
-                  <div
-                    className="top"
-                    onClick={() => router.push(`/details/${item?._id}`)}
-                  >
-                    <div className="userDetails">
-                      <div className="profilepic">
-                        <div className="profile_img">
-                          <div className="image">
-                            <img
-                              src="https://media.geeksforgeeks.org/wp-content/uploads/20220609093241/g3-200x200.png"
-                              alt="img9"
-                            />
+              {videos?.map((item, index) => {
+                // Ensure that the destination lat/lon (lat2, lon2) is defined
+                const lat2 = item?.lat;
+                const lon2 = item?.long;
+
+                const distance = getDistanceFromLatLonInKm(
+                  latitude,
+                  longitude,
+                  lat2,
+                  lon2
+                );
+
+                return (
+                  <div className="card reel-card" key={index}>
+                    <div
+                      className="top"
+                      onClick={() => router.push(`/details/${item?._id}`)}
+                    >
+                      <div className="userDetails">
+                        <div className="profilepic">
+                          <div className="profile_img">
+                            <div className="image">
+                              <img
+                                src="https://media.geeksforgeeks.org/wp-content/uploads/20220609093241/g3-200x200.png"
+                                alt="img9"
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <h3>
-                        {item?.contactName}
-                        <br />
-                        <span>{item?.location}</span>
-                      </h3>
-                      <div className="builder-location-text">
-                        <img
-                          src={"/solar_point-on-map-bold.png"}
-                          height={30}
-                          width={31}
-                        />
-                        <span className="distance-info">6Km away</span>
-                      </div>
-                    </div>
-                    <div>
-                      <span className="dot">
-                        <i className="fas fa-ellipsis-h"></i>
-                      </span>
-                    </div>
-                  </div>
-                  <div className="imgBx">
-                    <div className="video-container">
-                      <video
-                        src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/videos/${item.videoFiles[0]}`}
-                        autoPlay
-                        loop
-                        playsInline
-                        className="video-player"
-                        controls={false}
-                        muted={isMuted}
-                        ref={(el) => (videoRefs.current[index] = el)}
-                        onEnded={() => handleVideoEnded(index)}
-                      ></video>
-                      {isMuted && (
-                        <div className="unmute-button" onClick={handleUnmute}>
+                        <h3>
+                          {item?.contactName}
+                          <br />
+                          <span>{item?.location}</span>
+                        </h3>
+                        <div className="builder-location-text">
                           <img
-                            src="/1234.png"
-                            alt="test"
-                            width={25}
-                            height={20}
+                            src={"/solar_point-on-map-bold.png"}
+                            height={30}
+                            width={31}
                           />
+                          <span className="distance-info">
+                            {distance}Km away
+                          </span>
                         </div>
-                      )}
-                      {!isMuted && (
-                        <div className="unmute-button" onClick={handleMute}>
-                          <img
-                            src="/Speaker_Icon.svg.png"
-                            alt="test"
-                            width={25}
-                            height={20}
-                          />
-                        </div>
-                      )}
+                      </div>
+                      <div>
+                        <span className="dot">
+                          <i className="fas fa-ellipsis-h"></i>
+                        </span>
+                      </div>
                     </div>
+                    <div className="imgBx">
+                      <div className="video-container">
+                        <video
+                          src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/videos/${item.videoFiles[0]}`}
+                          autoPlay
+                          loop
+                          playsInline
+                          className="video-player"
+                          controls={false}
+                          muted={isMuted}
+                          ref={(el) => (videoRefs.current[index] = el)}
+                          onEnded={() => handleVideoEnded(index)}
+                        ></video>
+                        {isMuted && (
+                          <div className="unmute-button" onClick={handleUnmute}>
+                            <img
+                              src="/1234.png"
+                              alt="test"
+                              width={25}
+                              height={20}
+                            />
+                          </div>
+                        )}
+                        {!isMuted && (
+                          <div className="unmute-button" onClick={handleMute}>
+                            <img
+                              src="/Speaker_Icon.svg.png"
+                              alt="test"
+                              width={25}
+                              height={20}
+                            />
+                          </div>
+                        )}
+                      </div>
 
-                    <div className="bottom">
-                      <div className="actionBtns">
-                        <img src={"/bx_bookmark.png"} height={30} width={30} />
-                        <a
-                          href="https://wa.me/9669563039?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
+                      <div className="bottom">
+                        <div className="actionBtns">
+                          <img
+                            src={"/bx_bookmark.png"}
+                            height={30}
+                            width={30}
+                          />
+                          {/* <a
+                          href="https://wa.me/?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
                           target="_blank"
                           rel="noopener noreferrer"
                           className="btn"
-                        >
-                          <img src={"/whatsapp.png"} height={28} width={28} />
-                        </a>
-                        <a href="tel:+1234567890" className="btn">
+                        > */}
+                          <a
+                            href="#"
+                            onClick={() =>
+                              handleShareWhatsapp(
+                                item?.contactName,
+                                item?.location,
+                                item?._id
+                              )
+                            }
+                          >
+                            <img src={"/whatsapp.png"} height={28} width={28} />
+                          </a>
+                          <a href="tel:+1234567890" className="btn">
+                            <img
+                              src={"/basil_phone-outline-b.png"}
+                              height={34}
+                              width={34}
+                            />
+                          </a>
                           <img
-                            src={"/basil_phone-outline-b.png"}
-                            height={34}
-                            width={34}
+                            src={"/bitcoin-icons_share-outline.png"}
+                            height={33}
+                            width={33}
+                            onClick={() =>
+                              handleShare(
+                                item?.contactName,
+                                item?.location,
+                                item?._id
+                              )
+                            }
                           />
-                        </a>
-                        <img
-                          src={"/bitcoin-icons_share-outline.png"}
-                          height={33}
-                          width={33}
-                        />
-                      </div>
-                      <div>
-                        <button className="reviews-button">Reviews</button>
+                        </div>
+                        <div>
+                          <button className="reviews-button">Reviews</button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </main>

@@ -699,6 +699,9 @@ a {
    font-family: 'Poppins', sans-serif;
   margin: 0;
   color: #fff;
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
  .location-info p {
